@@ -38,7 +38,7 @@
             position: [-2.1709899968205337, 1.797907520678797, 1.8029059671481107]
             up: [0.4479257557058854, 0.8420981185224633, -0.30038854198560727]
             zoom: 2
-          image_prefix: ../sphexa-vis/output/step_.%05d
+          image_prefix: ./output/step_.%05d
 -
   action: add_extracts
   extracts:
