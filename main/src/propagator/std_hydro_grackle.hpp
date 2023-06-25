@@ -78,8 +78,8 @@ class HydroGrackleProp final : public HydroProp<DomainType, DataType>
                   "RT_H2_dissociation_rate", "H2_self_shielding_length">;
 
 public:
-    HydroGrackleProp(std::ostream& output, size_t rank)
-        : Base(output, rank)
+    HydroGrackleProp(std::ostream& output, size_t rank, size_t numRanks)
+        : Base(output, rank, numRanks)
     {
         constexpr float                 ms_sim = 1e16;
         constexpr float                 kp_sim = 46400.;

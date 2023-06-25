@@ -3,7 +3,7 @@
 # Replace $1 with the parent directory of SPH-EXA
 SPHEXA_ROOT="$1/../"
 . ~/spack/share/spack/setup-env.sh
-spack load conduit python py-numpy py-mpi4py paraview
+spack load conduit python py-numpy py-mpi4py paraview ffmpeg
 spack unload mpi
 cd $SPHEXA_ROOT/sphexa-build
 # rm -rf ./*

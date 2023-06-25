@@ -100,7 +100,7 @@ int main(int argc, char** argv)
 
     //! @brief evaluate user choice for different kind of actions
     auto simInit     = initializerFactory<Dataset>(initCond, glassBlock);
-    auto propagator  = propagatorFactory<Domain, Dataset>(propChoice, avClean, output, rank);
+    auto propagator  = propagatorFactory<Domain, Dataset>(propChoice, avClean, output, rank, numRanks);
     auto fileWriter  = fileWriterFactory(ascii, MPI_COMM_WORLD);
     auto observables = observablesFactory<Dataset>(initCond, constantsFile);
 

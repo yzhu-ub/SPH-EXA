@@ -7,20 +7,15 @@
         params: 
           field: ranks
           min_value: -1
-          max_value: 500
-      # f2:
-      #   type: "expression"
-      #   params:
-      #     expression: "field('y') + 1.2"
-      #     name: "my_cycle"
-- 
-  action: add_queries
-  queries:
-    q1:
-      pipeline: "pl1"
-      params:
-        expression: "cycle()"
-        name: "my_cycle"
+          max_value: 50000
+# - 
+#   action: add_queries
+#   queries:
+#     q1:
+#       pipeline: "pl1"
+#       params:
+#         expression: "field('rank_time')"
+#         name: "my_cycle"
 - 
   action: add_scenes
   scenes: 
@@ -29,10 +24,38 @@
         p1: 
           field: ranks
           type: pseudocolor
+          color_table:
+            name: "Cool to Warm"
+          # points: 
+          #   radius: 0.005
           pipeline: pl1
-      image_prefix: ../sphexa-vis/output/step_.%05d
+      renders:
+        r1:
+          camera:
+            # azimuth: 25
+            # elevation: -10
+            look_at: [0, 0, 0]
+            position: [-2.1709899968205337, 1.797907520678797, 1.8029059671481107]
+            up: [0.4479257557058854, 0.8420981185224633, -0.30038854198560727]
+            zoom: 2
+          image_prefix: ../sphexa-vis/output/step_.%05d
 -
-  action: "save_session"
-  file_name: "ascent_session"
-  expression_list:
-    - my_cycle
+  action: add_extracts
+  extracts:
+    e1:
+      type: python
+      params:
+        file: rank_benchmarks.py
+    # e2:
+    #   type: relay
+    #   pipeline: pl2
+    #   params:
+    #     path: res.yaml
+    #     protocol: yaml
+    #     num_files: 1
+    #     fields: ["rank_time"]
+# -
+#   action: save_session
+#   file_name: ascent_session
+#   expression_list:
+#     - my_cycle
