@@ -33,7 +33,7 @@ if (NOT OpenMP_CXX_INTERFACE_LINK_OPTIONS)
     set_property(TARGET OpenMP::OpenMP_CXX PROPERTY INTERFACE_LINK_OPTIONS ${OpenMP_CXX_INTERFACE_LINK_OPTIONS})
 endif()
 
-include_directories("/home/appcell/spack/opt/spack/linux-ubuntu22.04-skylake/gcc-11.3.0/openmpi-4.1.5-ej4bfoygrfqlhn76um3frnrup3bodmpt/include")
+# include_directories("/home/appcell/spack/opt/spack/linux-ubuntu22.04-skylake/gcc-11.3.0/openmpi-4.1.5-ej4bfoygrfqlhn76um3frnrup3bodmpt/include")
 include(CTest)
 include(CheckLanguage)
 
@@ -76,7 +76,8 @@ set(INSITU None CACHE STRING "Enable in-situ support")
 set_property(CACHE INSITU PROPERTY STRINGS None Catalyst Ascent)
 
 if(INSITU STREQUAL "Catalyst")
-    find_package(catalyst REQUIRED PATHS "$ENV{EBROOTPARAVIEW}/lib/cmake/paraview-5.10")
+    # find_package(catalyst REQUIRED PATHS "$ENV{EBROOTPARAVIEW}/lib/cmake/paraview-5*")
+    find_package(catalyst REQUIRED PATHS "${catalyst_DIR}")
 elseif(INSITU STREQUAL "Ascent")
 	find_package(Ascent REQUIRED PATHS "$ENV{EBROOTASCENT}/lib/cmake/ascent")
 endif()

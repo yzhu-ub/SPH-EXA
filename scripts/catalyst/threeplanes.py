@@ -221,7 +221,7 @@ SetActiveSource(Xplane)
 
 pNG1 = CreateExtractor('PNG', renderView1, registrationName='PNG1')
 pNG1.Trigger = 'TimeStep'
-pNG1.Trigger.Frequency = 10
+pNG1.Trigger.Frequency = 1
 #pNG1.Writer.FileName = 'test1_{timestep:06d}{camera}.png'
 pNG1.Writer.FileName = 'SedovPlanes_{timestep:06d}{camera}.png'
 pNG1.Writer.ImageResolution = [1024,1024]
@@ -231,7 +231,7 @@ pNG1.Writer.Format = 'PNG'
 from paraview import catalyst
 options = catalyst.Options()
 options.GlobalTrigger = 'TimeStep'
-#options.EnableCatalystLive = 1
+options.EnableCatalystLive = 1
 options.CatalystLiveTrigger = 'TimeStep'
 options.ExtractsOutputDirectory = '/home/appcell/unibas/sphexa-vis/output_catalyst'
 

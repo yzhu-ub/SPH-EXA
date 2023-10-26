@@ -11,6 +11,7 @@ with open(file_path, 'r') as file:
     data = json.load(file)
 N = len(data)
 N_ranks = len(data[0]["time"])
+N_ranks = 2
 
 # look at the last timestep when actions were triggered
 last_cycle = data[N-1]["step"]
@@ -33,7 +34,13 @@ max_exec_time = np.max(total_exec_times)
 exec_times = []
 for item in data:
     cycle_id = item["step"]
-    exec_times.append(item["time"])
+    curr_times = item["time"]
+
+    mmin = np.min(curr_times)
+    mmax = np.max(curr_times)
+    mmedian = np.median(curr_times)
+    # exec_times.append([mmin, (mmin + mmax)/2.0, mmax])
+    exec_times.append([mmedian, mmax - mmin])
     exec_times_plot = np.concatenate((exec_times, np.full((len(timesteps)-len(exec_times), N_ranks), np.nan)), axis=0)
     exec_times_all = [(exec_times_plot[:, i]).flatten() for i in range(N_ranks)]
     color_values = []
@@ -49,15 +56,20 @@ for item in data:
     scalarMap = matplotlib.cm.ScalarMappable(norm=cNorm, cmap=jet)
     values = range(N_ranks)
     lines = []
+    labels = ["Median exec time", "Diff between max and min exec time"]
     for i in range(N_ranks):
         colorVal = scalarMap.to_rgba(values[i])
         lines.append(
-            ax1.plot(timesteps, exec_times_all[i], label=f'Rank {i}', color=colorVal)
+            # ax1.plot(timesteps, exec_times_all[i], label=f'Rank {i}', color=colorVal)
+            ax1.plot(timesteps, exec_times_all[i], '-o', label=labels[i], color=colorVal, linewidth=1, markerfacecolor=colorVal, markersize=1)
             )
+
+
+
     ax1.set_ylabel('Exec time(s)')
     ax1.set_xlabel('Timestep')
     ax1.set_xlim(min(timesteps), max(timesteps))  # Set x-axis limits
-    ax1.set_ylim(min_exec_time, max_exec_time)  # Set y-axis limits
+    ax1.set_ylim(0.5, 2)  # Set y-axis limits
     ax1.set_facecolor('black')
 
     # Set the color of other plot elements to white
